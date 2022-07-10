@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:jue_jin_blog/bean/BlogCardBean.dart';
 import 'package:jue_jin_blog/bean/home_page_bean/RecommendTabBean.dart';
 import 'package:jue_jin_blog/nav/NavUtils.dart';
-import 'package:jue_jin_blog/pages/LoginRegisterPage.dart';
+import 'package:jue_jin_blog/pages/login_register/LoginRegisterPage.dart';
 import 'package:jue_jin_blog/res/color/BColors.dart';
 import 'package:jue_jin_blog/res/color/BFontSize.dart';
 import 'package:jue_jin_blog/res/color/BSize.dart';

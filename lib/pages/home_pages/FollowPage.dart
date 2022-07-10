@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jue_jin_blog/bean/home_page_bean/FollowTabBean.dart';
 import 'package:jue_jin_blog/nav/NavUtils.dart';
-import 'package:jue_jin_blog/pages/LoginRegisterPage.dart';
+import 'package:jue_jin_blog/pages/login_register/LoginRegisterPage.dart';
 import 'package:jue_jin_blog/res/color/BColors.dart';
 import 'package:jue_jin_blog/res/color/BFontSize.dart';
 

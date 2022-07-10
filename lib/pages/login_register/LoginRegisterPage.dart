@@ -1,9 +1,14 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:jue_jin_blog/pages/login_register/LoginRegisterEventCenter.dart';
 import 'package:jue_jin_blog/res/color/BColors.dart';
 import 'package:jue_jin_blog/res/color/BFontSize.dart';
 import 'package:jue_jin_blog/res/color/BSize.dart';
 import 'package:jue_jin_blog/widget/CommonButton.dart';
+
+import '../../net/dao/LoginRegisterDao.dart';
 
 class LoginRegisterPage extends StatefulWidget {
   LoginRegisterPage({Key? key}) : super(key: key);
@@ -79,13 +84,41 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
     );
   }
 
+  bool _isButtonEnable = false;
   Widget verifyCodeButton(){
-    return CommonButton("获取短信验证码", null,backgroundColor: Colors.blueAccent,enable: false,);
+    return CommonButton("获取短信验证码",(){
+      Fluttertoast.showToast(
+          msg: "请先勾选同意后再进行登录",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black54,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+      if(_isPrivicyBoxSelected!) {
+        var result = LoginRegisterDao.verifyCode(_controller.text);
+        LogUtil.init(isDebug: true);
+        LogUtil.d("getVerifyCodeClick: " + result.toString());
+      }else{
+        Fluttertoast.showToast(
+            msg: "请先勾选同意后再进行登录",
+            toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black54,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+      }
+    },backgroundColor: Colors.blueAccent,enable: _isButtonEnable,);
   }
 
+
+  final _controller = TextEditingController();
   Widget inputCell(){
     return Container(
-      child:       Row(
+      child: Row(
         children: [
           Text("+86",style: TextStyle(fontSize: BFontSize.FONT_SIZE_MAXIMUM),),
           Icon(Icons.keyboard_arrow_down_outlined,size: 18,),
@@ -96,6 +129,18 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
               style: TextStyle(
                   fontSize: BFontSize.FONT_SIZE_MAXIMUM
               ),
+              onChanged: (text){
+                if(text.length >= 11){
+                  setState(() {
+                    _isButtonEnable = true;
+                  });
+                }else{
+                  setState(() {
+                    _isButtonEnable = false;
+                  });
+                }
+              },
+              controller: _controller,
               textAlignVertical: TextAlignVertical.center,
               cursorColor: Colors.blueAccent[700],
               cursorWidth: 1,
@@ -118,7 +163,8 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
     );
   }
 
-  bool? _checkBoxSelected = false;
+  GlobalKey _privicyKey = GlobalKey();
+  bool? _isPrivicyBoxSelected = false;
   Widget ensureClauseCell(){
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -126,9 +172,9 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
       children: [
         Transform.scale(scale: 0.6,
             alignment: Alignment.center,
-            child: Checkbox(value: _checkBoxSelected, onChanged: (value){
+            child: Checkbox(value: _isPrivicyBoxSelected, onChanged: (value){
               setState(() {
-                _checkBoxSelected = value;
+                _isPrivicyBoxSelected = value;
               });
             },
         )),
