@@ -7,4 +7,6 @@ class BSize{
   static const double COMMON_CARD_HEIGHT = 158;
   static const double COMMON_CELL_HEIGHT = 42;
 
+  static const double COMMON_BACK_ICON_SIZE = 12;
+
 }

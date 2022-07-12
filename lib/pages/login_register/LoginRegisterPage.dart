@@ -2,10 +2,12 @@ import 'package:common_utils/common_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:jue_jin_blog/pages/login_register/LoginRegisterEventCenter.dart';
+import 'package:jue_jin_blog/nav/NavUtils.dart';
+import 'package:jue_jin_blog/pages/login_register/VerifyCodePage.dart';
 import 'package:jue_jin_blog/res/color/BColors.dart';
 import 'package:jue_jin_blog/res/color/BFontSize.dart';
 import 'package:jue_jin_blog/res/color/BSize.dart';
+import 'package:jue_jin_blog/util/ToastUtil.dart';
 import 'package:jue_jin_blog/widget/CommonButton.dart';
 
 import '../../net/dao/LoginRegisterDao.dart';
@@ -87,29 +89,14 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
   bool _isButtonEnable = false;
   Widget verifyCodeButton(){
     return CommonButton("获取短信验证码",(){
-      Fluttertoast.showToast(
-          msg: "请先勾选同意后再进行登录",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.black54,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );
       if(_isPrivicyBoxSelected!) {
         var result = LoginRegisterDao.verifyCode(_controller.text);
-        LogUtil.init(isDebug: true);
-        LogUtil.d("getVerifyCodeClick: " + result.toString());
+        if(result == VerifyCodeStatusType.VERIFY_CODE_OK){
+          NavUtils.navTo(context,VerifyCodePage(_controller.text));
+        }
+
       }else{
-        Fluttertoast.showToast(
-            msg: "请先勾选同意后再进行登录",
-            toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.black54,
-            textColor: Colors.white,
-            fontSize: 16.0
-        );
+        ToastUtil.showToast("请先勾选同意后再进行登录");
       }
     },backgroundColor: Colors.blueAccent,enable: _isButtonEnable,);
   }
@@ -211,8 +198,6 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
           ),
         ),
       )
-
-
     );
   }
 }

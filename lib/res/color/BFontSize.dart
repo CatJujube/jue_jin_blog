@@ -4,4 +4,7 @@ class BFontSize{
   static const double FONT_SIZE_NORMAL = 15;
   static const double FONT_SIZE_BIG = 17;
   static const double FONT_SIZE_MAXIMUM = 19;
+  static const double FONT_SIZE_MAXIMUM_PLUS = 21;
+  static const double FONT_SIZE_MAXIMUM_PLUS_PLUS = 23;
+
 }

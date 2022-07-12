@@ -20,7 +20,7 @@ class HttpUtil{
   }
 
   Future fire(BaseRequest request) async{
-    BaseHttpResponse? response;
+    BaseHttpResponse<String>? response;
     var error;
     try{
       response = await send(request);
