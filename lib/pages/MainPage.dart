@@ -4,7 +4,7 @@ import 'package:jue_jin_blog/bean/MineInfoBean.dart';
 import 'package:jue_jin_blog/bean/home_page_bean/HomePageBean.dart';
 import 'package:jue_jin_blog/pages/EmptyPage.dart';
 import 'package:jue_jin_blog/pages/HomePage.dart';
-import 'package:jue_jin_blog/pages/MineInfoPage.dart';
+import 'package:jue_jin_blog/pages/mine_info_pages/MineInfoPage.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);

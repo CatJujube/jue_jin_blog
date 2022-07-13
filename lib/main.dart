@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jue_jin_blog/bean/MineInfoBean.dart';
 import 'package:jue_jin_blog/pages/MainPage.dart';
-import 'package:jue_jin_blog/pages/MineInfoPage.dart';
+import 'package:jue_jin_blog/pages/mine_info_pages/MineInfoPage.dart';
 import 'package:jue_jin_blog/res/color/BColors.dart';
 
 void main() {
