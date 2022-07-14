@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jue_jin_blog/bean/BlogBean.dart';
 import 'package:jue_jin_blog/bean/BlogCardBean.dart';
 import 'package:jue_jin_blog/nav/NavUtils.dart';
+import 'package:jue_jin_blog/pages/BlogContentPage.dart';
 import 'package:jue_jin_blog/pages/login_register/LoginRegisterPage.dart';
 import 'package:jue_jin_blog/res/color/BColors.dart';
 import 'package:jue_jin_blog/res/color/BFontSize.dart';
@@ -22,9 +24,10 @@ class _BlogCardState extends State<BlogCard> {
   double commonSpan = BSize.COMMON_LEFT_SPAN;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: BSize.COMMON_CARD_HEIGHT,
-      margin: EdgeInsets.only(top: BSize.COMMON_TOP_SPAN),
+    return InkWell(
+      child:       Container(
+        height: BSize.COMMON_CARD_HEIGHT,
+        margin: EdgeInsets.only(top: BSize.COMMON_CELL_SPAN),
         color: BColors.COMMON_WITE_BG_COLOR,
         child: Container(
           margin: EdgeInsets.only(left: commonSpan,right: commonSpan),
@@ -37,7 +40,7 @@ class _BlogCardState extends State<BlogCard> {
                 child: Text(widget._bean.blogTitle,style: TextStyle(fontSize: BFontSize.FONT_SIZE_NORMAL+1,fontWeight: FontWeight.w600),maxLines: 2,),
               ),
               Container(
-                child: sumaryAndCoverBlock()
+                  child: sumaryAndCoverBlock()
               ),
               Container(
                 height: widget.iconSize,
@@ -54,6 +57,10 @@ class _BlogCardState extends State<BlogCard> {
             ],
           ),
         ),
+      ),
+      onTap: (){
+        NavUtils.navTo(context, BlogContentPage(BlogBean.mockData()));
+      },
     );
   }
 

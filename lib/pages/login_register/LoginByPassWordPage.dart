@@ -1,26 +1,21 @@
-import 'package:common_utils/common_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:jue_jin_blog/nav/NavUtils.dart';
-import 'package:jue_jin_blog/pages/login_register/LoginByPassWordPage.dart';
-import 'package:jue_jin_blog/pages/login_register/VerifyCodePage.dart';
 import 'package:jue_jin_blog/res/color/BColors.dart';
 import 'package:jue_jin_blog/res/color/BFontSize.dart';
 import 'package:jue_jin_blog/res/color/BSize.dart';
-import 'package:jue_jin_blog/util/ToastUtil.dart';
 import 'package:jue_jin_blog/widget/EasyButton.dart';
 
-import '../../net/dao/LoginRegisterDao.dart';
+import 'VerifyCodePage.dart';
 
-class LoginRegisterPage extends StatefulWidget {
-  LoginRegisterPage({Key? key}) : super(key: key);
+class LoginByPassWordPage extends StatefulWidget {
+  LoginByPassWordPage({Key? key}) : super(key: key);
   final double commonSpan = BSize.COMMON_RIGHT_SPAN+6;
+
   @override
-  _LoginRegisterPageState createState() => _LoginRegisterPageState();
+  _LoginByPassWordPageState createState() => _LoginByPassWordPageState();
 }
 
-class _LoginRegisterPageState extends State<LoginRegisterPage> {
+class _LoginByPassWordPageState extends State<LoginByPassWordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,34 +34,29 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
 
   Widget body(){
     return Container(
-      margin: EdgeInsets.only(left: widget.commonSpan,right: widget.commonSpan),
-      child: Stack(
-        children: [
-          Column(
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: 20,bottom: 80),
-                child: firstCell(),
-              ),
-              inputCell(),
-              Container(
-                margin: EdgeInsets.only(top: 25),
-                child: verifyCodeButton(),
-              ),
-              Container(
-                height: 40,
-                child: ensureClauseCell(),
-              ),
-            ],
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: bottomIcons(),
-          )
-        ],
-      )
+        margin: EdgeInsets.only(left: widget.commonSpan,right: widget.commonSpan),
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: 20,bottom: 80),
+                  child: firstCell(),
+                ),
+                inputCell("手机号/邮箱"),
+                inputCell("密码"),
+                Container(
+                  margin: EdgeInsets.only(top: 25),
+                  child: verifyCodeButton(),
+                ),
+                Container(
+                  height: 40,
+                  child: ensureClauseCell(),
+                ),
+              ],
+            ),
+          ],
+        )
 
     );
   }
@@ -89,31 +79,20 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
 
   bool _isButtonEnable = false;
   Widget verifyCodeButton(){
-    return EasyButton("获取短信验证码",(){
-      if(_isPrivicyBoxSelected!) {
-        var result = LoginRegisterDao.verifyCode(_controller.text);
-        if(result == VerifyCodeStatusType.VERIFY_CODE_OK){
-          NavUtils.navTo(context,VerifyCodePage(_controller.text));
-        }
+    return EasyButton("登录",(){
 
-      }else{
-        ToastUtil.showToast("请先勾选同意后再进行登录");
-      }
     },backgroundColor: Colors.blueAccent,enable: _isButtonEnable,);
   }
 
 
   final _controller = TextEditingController();
-  Widget inputCell(){
+  Widget inputCell(String hint){
     return Container(
       child: Row(
         children: [
-          Text("+86",style: TextStyle(fontSize: BFontSize.FONT_SIZE_MAXIMUM),),
-          Icon(Icons.keyboard_arrow_down_outlined,size: 18,),
           Container(
-            margin: EdgeInsets.only(left: 8),
             width: 250,
-            child:         TextField(
+            child: TextField(
               style: TextStyle(
                   fontSize: BFontSize.FONT_SIZE_MAXIMUM
               ),
@@ -135,7 +114,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
               autofocus: true,
               decoration: InputDecoration(
                   alignLabelWithHint: true,
-                  hintText: "请输入手机号码",
+                  hintText: hint,
                   hintStyle: TextStyle(
                       color: Colors.grey[400]
                   ),
@@ -146,7 +125,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
         ],
       ),
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(width: 1,color: Color(0xFFBDBDBD)))
+          border: Border(bottom: BorderSide(width: 1,color: Color(0xFFBDBDBD)))
       ),
     );
   }
@@ -165,7 +144,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
                 _isPrivicyBoxSelected = value;
               });
             },
-        )),
+            )),
         Text("已阅读并同意\"用户协议\"和\"隐私政策\"",style: TextStyle(fontSize: BFontSize.FONT_SIZE_SAMLLEST,color: Colors.grey[500]),)
       ],
     );
@@ -176,34 +155,29 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        circleIcon("lib/images/login_register/base_ic_share_wechat.png",Colors.green,(){}),
-        circleIcon("lib/images/login_register/account_x_ic_github.png",Colors.black,(){}),
-        circleIcon("lib/images/login_register/ic_course_lock.webp",Colors.grey,(){
-          NavUtils.navTo(context, LoginByPassWordPage());
-        }),
+        circleIcon("lib/images/login_register/base_ic_share_wechat.png",Colors.green),
+        circleIcon("lib/images/login_register/account_x_ic_github.png",Colors.black),
+        circleIcon("lib/images/login_register/ic_course_lock.webp",Colors.grey),
       ],
     );
   }
 
-  Widget circleIcon(String path,Color color,VoidCallback onTap){
-    return InkWell(
-      child:       Container(
-          margin: EdgeInsets.only(left: 10,right: 10,bottom: 20),
+  Widget circleIcon(String path,Color color){
+    return Container(
+        margin: EdgeInsets.only(left: 10,right: 10,bottom: 20),
+        child: CircleAvatar(
+          radius: 18,
+          backgroundColor: Colors.grey[300],
           child: CircleAvatar(
-            radius: 18,
-            backgroundColor: Colors.grey[300],
-            child: CircleAvatar(
-              radius: 17,
-              backgroundColor: Colors.white,
-              child: ImageIcon(
-                AssetImage(path),
-                color:color,
-                size: 17,
-              ),
+            radius: 17,
+            backgroundColor: Colors.white,
+            child: ImageIcon(
+              AssetImage(path),
+              color:color,
+              size: 17,
             ),
-          )
-      ),
-      onTap: onTap,
+          ),
+        )
     );
   }
 }

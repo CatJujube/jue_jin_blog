@@ -1,24 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jue_jin_blog/bean/home_page_bean/BaseTabBean.dart';
-import 'package:jue_jin_blog/bean/home_page_bean/HotTabBean.dart';
-import 'package:jue_jin_blog/nav/NavUtils.dart';
+import 'package:jue_jin_blog/bean/home_page_bean/BubbleTabBean.dart';
 import 'package:jue_jin_blog/res/color/BColors.dart';
 import 'package:jue_jin_blog/res/color/BFontSize.dart';
-import 'package:jue_jin_blog/res/color/BMargin.dart';
 import 'package:jue_jin_blog/res/color/BSize.dart';
-import 'package:jue_jin_blog/widget/BlogCardV2.dart';
-import 'package:jue_jin_blog/widget/EasyBubble.dart';
+import 'package:jue_jin_blog/widget/BlogCard.dart';
 
-class HotPage extends StatefulWidget {
-  HotPage(this.bean,this.isLogin,{Key? key}) : super(key: key);
-  HotTabBean bean;
+class BackEndPage extends StatefulWidget {
+  BackEndPage(this.bean,this.isLogin,{Key? key}) : super(key: key);
+  BubbleTabBean bean;
   bool isLogin;
   @override
-  _HotPageState createState() => _HotPageState();
+  _BackEndPageState createState() => _BackEndPageState();
 }
 
-class _HotPageState extends State<HotPage> {
+class _BackEndPageState extends State<BackEndPage> {
   List<String> bubbleTitles = [];
   int _selectedIndex = 0;
 
@@ -26,7 +23,7 @@ class _HotPageState extends State<HotPage> {
   void initState() {
     super.initState();
     bubbleTitles = widget.bean.subBeans.map((e){
-        return BaseCategoryType.mapper(e.type);
+      return BaseCategoryType.mapper(e.type);
     }).cast<String>().toList();
   }
 
@@ -100,48 +97,13 @@ class _HotPageState extends State<HotPage> {
           color: BColors.COMMON_GREY_BG_COLOR,
         ),
       ),
-      Container(
-          color: Colors.white,
-          padding: BMargin.COMMON_LEFT_RIGHT_MARGIN,
-          margin: EdgeInsets.only(top: 10,bottom: 20),
-          child: hotTitle()
-      ),];
+    ];
 
     for(var i=0;i<beans.length;++i){
-      retList.add(BlogCardV2(i+1, beans[i]));
+      retList.add(BlogCard(beans[i],false));
     }
     return retList;
   }
 
 
-  Widget hotTitle(){
-    return Row(
-      children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Container(
-            child: Text("热门文章榜",style: TextStyle(fontSize: BFontSize.FONT_SIZE_BIG,fontWeight: FontWeight.w600))
-
-          )
-        ),
-        Flexible(fit: FlexFit.tight, child: SizedBox()),
-        Container(
-          margin: EdgeInsets.only(right: 10),
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: EasyBubble("收藏榜",rightIcon: Icon(Icons.arrow_right,color: Colors.blueAccent,size: 16,),onTap: (){
-              NavUtils.navToEmptyPage(context, "收藏榜");
-            },),
-          ),
-        ),
-
-        Align(
-          alignment: Alignment.centerRight,
-          child: EasyBubble("作者榜",rightIcon:Icon(Icons.arrow_right,color: Colors.blueAccent,size: 16),onTap: (){
-            NavUtils.navToEmptyPage(context, "作者榜");
-          },),
-        )
-      ],
-    );
-  }
 }

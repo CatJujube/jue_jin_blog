@@ -5,7 +5,7 @@ class FollowTabBean extends BaseTabBean{
 
   static BaseTabBean mockData(){
     BaseTabBean tabBean = FollowTabBean();
-    tabBean.tabType = TabBeanType.FOLLOW_TYPE;
+    tabBean.tabType = BaseCategoryType.FOLLOW_TYPE;
     return tabBean;
   }
 }

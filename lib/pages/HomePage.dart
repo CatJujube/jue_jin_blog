@@ -1,15 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jue_jin_blog/bean/home_page_bean/BaseTabBean.dart';
-import 'package:jue_jin_blog/bean/home_page_bean/FollowTabBean.dart';
 import 'package:jue_jin_blog/bean/home_page_bean/HomePageBean.dart';
-import 'package:jue_jin_blog/bean/home_page_bean/RecommendTabBean.dart';
 import 'package:jue_jin_blog/nav/NavUtils.dart';
-import 'package:jue_jin_blog/pages/EmptyPage.dart';
-import 'package:jue_jin_blog/pages/home_pages/FollowPage.dart';
-import 'package:jue_jin_blog/pages/home_pages/RecommendPage.dart';
 import 'package:jue_jin_blog/res/color/BColors.dart';
-import 'package:jue_jin_blog/res/color/BFontSize.dart';
 import 'package:jue_jin_blog/res/color/BSize.dart';
 import 'package:jue_jin_blog/util/SystemUtil.dart';
 import 'package:jue_jin_blog/util/TabBeanMapperUtil.dart';
@@ -63,7 +57,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           controller:_tabController,
           tabs: _tabBeanList.map((tabBean){
             return Container(
-              child: RightButtonTab(text: TabBeanType.mapper(tabBean.tabType)),
+              child: RightButtonTab(text: BaseCategoryType.mapper(tabBean.tabType)),
             );
           }).toList(),
           indicatorColor: Colors.blueAccent,

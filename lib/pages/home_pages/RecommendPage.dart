@@ -46,7 +46,7 @@ class _RecommendPageState extends State<RecommendPage> {
 
   Widget loginCard(){
     return Container(
-      margin: EdgeInsets.only(top: BSize.COMMON_TOP_SPAN),
+      margin: EdgeInsets.only(top: BSize.COMMON_CELL_SPAN),
       height: 64,
       color: BColors.COMMON_WITE_BG_COLOR,
       child: InkWell(
@@ -82,7 +82,7 @@ class _RecommendPageState extends State<RecommendPage> {
 
   Widget hotCard(){
     return Container(
-      margin: EdgeInsets.only(top: BSize.COMMON_TOP_SPAN),
+      margin: EdgeInsets.only(top: BSize.COMMON_CELL_SPAN),
       color: BColors.COMMON_WITE_BG_COLOR,
       child: Container(
         margin: EdgeInsets.only(left: BSize.COMMON_LEFT_SPAN,right: BSize.COMMON_RIGHT_SPAN,bottom: 20),
@@ -98,10 +98,10 @@ class _RecommendPageState extends State<RecommendPage> {
     return Row(
       children: [
         picAndText(picPath, number,size),
-        Container(
+        Expanded(child:    Container(
           margin: EdgeInsets.only(left: 10),
-          child: Text(text,style: TextStyle(fontSize: BFontSize.FONT_SIZE_NORMAL)),
-        )
+          child: Text(text,style: TextStyle(fontSize: BFontSize.FONT_SIZE_NORMAL),maxLines: 1,),
+        ))
       ],
     );
   }
@@ -118,7 +118,7 @@ class _RecommendPageState extends State<RecommendPage> {
         ),
       ),
       alignment: Alignment.center,
-      child: Text(text,style: TextStyle(color: Colors.white),),
+      child: Text(text,style: TextStyle(color: Colors.white),maxLines: 1,),
     );
   }
 

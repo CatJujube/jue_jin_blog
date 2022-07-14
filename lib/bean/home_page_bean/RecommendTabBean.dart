@@ -7,7 +7,7 @@ class RecommendTabBean extends BaseTabBean{
   List<BlogCardBean> blogCardList = [];
 
   RecommendTabBean(this.isLogin, this.hotBlogList, this.blogCardList){
-    this.tabType = TabBeanType.RECOMMEND_TYPE;
+    this.tabType = BaseCategoryType.RECOMMEND_TYPE;
   }
 
   static final cardBean = BlogCardBean("你还在直接用localStorage么？该提升下逼格了！", "Gaby", 0,

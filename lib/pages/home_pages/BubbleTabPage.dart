@@ -1,24 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jue_jin_blog/bean/home_page_bean/BaseTabBean.dart';
-import 'package:jue_jin_blog/bean/home_page_bean/HotTabBean.dart';
-import 'package:jue_jin_blog/nav/NavUtils.dart';
+import 'package:jue_jin_blog/bean/home_page_bean/BubbleTabBean.dart';
 import 'package:jue_jin_blog/res/color/BColors.dart';
 import 'package:jue_jin_blog/res/color/BFontSize.dart';
-import 'package:jue_jin_blog/res/color/BMargin.dart';
 import 'package:jue_jin_blog/res/color/BSize.dart';
-import 'package:jue_jin_blog/widget/BlogCardV2.dart';
-import 'package:jue_jin_blog/widget/EasyBubble.dart';
+import 'package:jue_jin_blog/widget/BlogCard.dart';
 
-class HotPage extends StatefulWidget {
-  HotPage(this.bean,this.isLogin,{Key? key}) : super(key: key);
-  HotTabBean bean;
+class BubbleTabPage extends StatefulWidget {
+  BubbleTabPage(this.bean,this.isLogin,{Key? key}) : super(key: key);
+  BubbleTabBean bean;
   bool isLogin;
   @override
-  _HotPageState createState() => _HotPageState();
+  _BubbleTabPageState createState() => _BubbleTabPageState();
 }
 
-class _HotPageState extends State<HotPage> {
+class _BubbleTabPageState extends State<BubbleTabPage> {
   List<String> bubbleTitles = [];
   int _selectedIndex = 0;
 
@@ -26,14 +23,14 @@ class _HotPageState extends State<HotPage> {
   void initState() {
     super.initState();
     bubbleTitles = widget.bean.subBeans.map((e){
-        return BaseCategoryType.mapper(e.type);
+      return BaseCategoryType.mapper(e.type);
     }).cast<String>().toList();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: BColors.COMMON_GREY_BG_COLOR,
       child: Column(
         children: [
           Container(
@@ -53,7 +50,7 @@ class _HotPageState extends State<HotPage> {
 
           Expanded(child: ListView(
             shrinkWrap: true,
-            children: buildHotList(_selectedIndex),
+            children: buildBubbleCardList(_selectedIndex),
           )
           )
 
@@ -72,7 +69,7 @@ class _HotPageState extends State<HotPage> {
 
   Widget easyBubble(String title,int index,VoidCallback onTap){
     return InkWell(
-      child:       Container(
+      child: Container(
         alignment: Alignment.center,
         margin: EdgeInsets.only(left: 15),
         padding: EdgeInsets.only(left: 10,right: 10,top: 2,bottom: 2),
@@ -91,57 +88,18 @@ class _HotPageState extends State<HotPage> {
     );
   }
 
-  List<Widget> buildHotList(int selectedIndex){
+  List<Widget> buildBubbleCardList(int selectedIndex){
     var beans = widget.bean.subBeans[selectedIndex].cardBeans;
-    List<Widget> retList = [
-      SizedBox(
-        height:BSize.COMMON_CELL_SPAN,
-        child: Container(
-          color: BColors.COMMON_GREY_BG_COLOR,
-        ),
-      ),
-      Container(
-          color: Colors.white,
-          padding: BMargin.COMMON_LEFT_RIGHT_MARGIN,
-          margin: EdgeInsets.only(top: 10,bottom: 20),
-          child: hotTitle()
-      ),];
+    List<Widget> retList = [];
 
     for(var i=0;i<beans.length;++i){
-      retList.add(BlogCardV2(i+1, beans[i]));
+      retList.add(
+          Container(
+            child: BlogCard(beans[i],false),
+          ));
     }
     return retList;
   }
 
 
-  Widget hotTitle(){
-    return Row(
-      children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Container(
-            child: Text("热门文章榜",style: TextStyle(fontSize: BFontSize.FONT_SIZE_BIG,fontWeight: FontWeight.w600))
-
-          )
-        ),
-        Flexible(fit: FlexFit.tight, child: SizedBox()),
-        Container(
-          margin: EdgeInsets.only(right: 10),
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: EasyBubble("收藏榜",rightIcon: Icon(Icons.arrow_right,color: Colors.blueAccent,size: 16,),onTap: (){
-              NavUtils.navToEmptyPage(context, "收藏榜");
-            },),
-          ),
-        ),
-
-        Align(
-          alignment: Alignment.centerRight,
-          child: EasyBubble("作者榜",rightIcon:Icon(Icons.arrow_right,color: Colors.blueAccent,size: 16),onTap: (){
-            NavUtils.navToEmptyPage(context, "作者榜");
-          },),
-        )
-      ],
-    );
-  }
 }

@@ -4,8 +4,8 @@ import 'package:flutter/rendering.dart';
 import 'package:jue_jin_blog/res/color/BFontSize.dart';
 import 'package:jue_jin_blog/res/color/BSize.dart';
 
-class CommonButton extends StatefulWidget {
-  CommonButton(this.title,this.onTap,{Key? key,
+class EasyButton extends StatefulWidget {
+  EasyButton(this.title,this.onTap,{Key? key,
     this.textColor=Colors.white,
     this.backgroundColor=Colors.pinkAccent,
     this.fontSize =  BFontSize.FONT_SIZE_NORMAL,
@@ -25,10 +25,10 @@ class CommonButton extends StatefulWidget {
   bool isBlod;
   bool enable;
   @override
-  _CommonButtonState createState() => _CommonButtonState();
+  _EasyButtonState createState() => _EasyButtonState();
 }
 
-class _CommonButtonState extends State<CommonButton> {
+class _EasyButtonState extends State<EasyButton> {
   @override
   Widget build(BuildContext context) {
     return
