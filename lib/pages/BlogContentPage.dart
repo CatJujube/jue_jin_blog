@@ -1,11 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jue_jin_blog/bean/BlogBean.dart';
+import 'package:jue_jin_blog/bean/UserBean.dart';
 import 'package:jue_jin_blog/nav/NavUtils.dart';
 import 'package:jue_jin_blog/res/color/BColors.dart';
+import 'package:jue_jin_blog/res/color/BFontSize.dart';
+import 'package:jue_jin_blog/res/color/BMargin.dart';
 import 'package:jue_jin_blog/res/color/BSize.dart';
+import 'package:jue_jin_blog/widget/BlogCardRelated.dart';
 import 'package:jue_jin_blog/widget/EasyBubble.dart';
 import 'package:jue_jin_blog/widget/EasyMarkdown.dart';
+import 'package:jue_jin_blog/widget/EasyUserHeader.dart';
 
 class BlogContentPage extends StatefulWidget {
   BlogContentPage(this._blogBean,{Key? key}) : super(key: key);
@@ -30,7 +35,7 @@ class _BlogContentPageState extends State<BlogContentPage> {
               Container(
                 margin: EdgeInsets.only(right: 10),
                 child: InkWell(
-                  child:                 CircleAvatar(
+                  child: CircleAvatar(
                     backgroundImage: NetworkImage(widget._blogBean.author.headerUrl),
                     radius: BSize.COMMON_HEADER_SIZE,
                     foregroundColor: Colors.white,
@@ -43,7 +48,7 @@ class _BlogContentPageState extends State<BlogContentPage> {
 
               ),
               Container(
-                child: Text(widget._blogBean.title),
+                child: Text(widget._blogBean.author.userName,maxLines: 1,overflow: TextOverflow.ellipsis,),
               ),
             ],
           ),
@@ -77,14 +82,29 @@ class _BlogContentPageState extends State<BlogContentPage> {
             )
 
         ],
-
-
       ),
       body: Container(
-            color: BColors.COMMON_GREY_BG_COLOR,
+            color: Colors.white,
             child: Column(
               children: [
-                Expanded(child: EasyMarkdown(widget._blogBean.markdownUrl)),
+                Expanded(child:
+                  ListView(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    children: [
+                      blogHeader(),
+                      Container(
+                        margin: EdgeInsets.only(bottom: 50),
+                        child: EasyMarkdown(widget._blogBean.markdownUrl),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: BSize.COMMON_CELL_SPAN),
+                        color: BColors.COMMON_GREY_BG_COLOR,
+                        child: relatedBlog()
+                      )
+                    ],
+                  )
+                ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
@@ -131,6 +151,44 @@ class _BlogContentPageState extends State<BlogContentPage> {
               ],
             )
           )
+    );
+  }
+
+  Widget blogHeader(){
+    return Container(
+      margin: BMargin.COMMON_LEFT_RIGHT_MARGIN,
+      child: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.only(top: 18,bottom: 18),
+            child: Text(widget._blogBean.title,style: TextStyle(fontSize: BFontSize.FONT_SIZE_MARKDOWN_TITLE),maxLines:5),
+          ),
+          Container(
+            margin: EdgeInsets.only(bottom: 16),
+            child: EasyUserHeader(widget._blogBean)
+          )
+        ],
+      )
+    );
+  }
+
+  Widget relatedBlog(){
+    List<Widget> cardList = [
+      Container(
+        child: Text("相关文章",style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: BFontSize.FONT_SIZE_BIG
+        ),),
+      )
+    ];
+    cardList.addAll(
+        widget._blogBean.relatedBlogs.map((bean) => BlogCardRelated(bean)).toList()
+    );
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: cardList,
+      ),
     );
   }
 }

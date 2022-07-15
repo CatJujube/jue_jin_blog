@@ -35,7 +35,6 @@ class _EasyBubbleState extends State<EasyBubble> {
         alignment: Alignment.center,
         padding: EdgeInsets.only(left: 8,right: 8,top: 2,bottom: 2),
         child: Row(
-
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(widget.title,style: TextStyle(color: widget.textColor,fontSize: BFontSize.FONT_SIZE_SAMLL),),

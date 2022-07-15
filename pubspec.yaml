@@ -93,6 +93,7 @@ flutter:
     - lib/images/home_page/bg_hot_rank1.webp
     - lib/images/home_page/bg_hot_rank2.webp
     - lib/images/home_page/bg_hot_rank3.webp
+    - lib/asset/Spring.md
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

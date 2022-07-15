@@ -92,7 +92,7 @@ class _HotPageState extends State<HotPage> {
   }
 
   List<Widget> buildHotList(int selectedIndex){
-    var beans = widget.bean.subBeans[selectedIndex].cardBeans;
+    var beans = widget.bean.subBeans[selectedIndex].blogBeans;
     List<Widget> retList = [
       SizedBox(
         height:BSize.COMMON_CELL_SPAN,
@@ -131,7 +131,7 @@ class _HotPageState extends State<HotPage> {
             alignment: Alignment.centerRight,
             child: EasyBubble("收藏榜",rightIcon: Icon(Icons.arrow_right,color: Colors.blueAccent,size: 16,),onTap: (){
               NavUtils.navToEmptyPage(context, "收藏榜");
-            },),
+            },width: 72,),
           ),
         ),
 
@@ -139,7 +139,7 @@ class _HotPageState extends State<HotPage> {
           alignment: Alignment.centerRight,
           child: EasyBubble("作者榜",rightIcon:Icon(Icons.arrow_right,color: Colors.blueAccent,size: 16),onTap: (){
             NavUtils.navToEmptyPage(context, "作者榜");
-          },),
+          },width: 72,),
         )
       ],
     );
