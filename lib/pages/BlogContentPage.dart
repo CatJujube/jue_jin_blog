@@ -99,6 +99,7 @@ class _BlogContentPageState extends State<BlogContentPage> {
                       ),
                       Container(
                         padding: EdgeInsets.only(top: BSize.COMMON_CELL_SPAN),
+                        margin: BMargin.COMMON_LEFT_RIGHT_MARGIN,
                         color: BColors.COMMON_GREY_BG_COLOR,
                         child: relatedBlog()
                       )
@@ -175,6 +176,8 @@ class _BlogContentPageState extends State<BlogContentPage> {
   Widget relatedBlog(){
     List<Widget> cardList = [
       Container(
+        alignment: Alignment.centerLeft,
+        margin: EdgeInsets.only(top: 20,bottom: 20),
         child: Text("相关文章",style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: BFontSize.FONT_SIZE_BIG
