@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jue_jin_blog/bean/BlogBean.dart';
+import 'package:jue_jin_blog/widget/CommentCard.dart';
 import 'package:jue_jin_blog/bean/UserBean.dart';
 import 'package:jue_jin_blog/nav/NavUtils.dart';
 import 'package:jue_jin_blog/res/color/BColors.dart';
@@ -45,9 +46,11 @@ class _BlogContentPageState extends State<BlogContentPage> {
                   },
                 )
 
-
               ),
-              Container(
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: 140
+                ),
                 child: Text(widget._blogBean.author.userName,maxLines: 1,overflow: TextOverflow.ellipsis,),
               ),
             ],
@@ -99,9 +102,19 @@ class _BlogContentPageState extends State<BlogContentPage> {
                       ),
                       Container(
                         padding: EdgeInsets.only(top: BSize.COMMON_CELL_SPAN),
-                        margin: BMargin.COMMON_LEFT_RIGHT_MARGIN,
                         color: BColors.COMMON_GREY_BG_COLOR,
-                        child: relatedBlog()
+                        child: Container(
+                          margin: BMargin.COMMON_LEFT_RIGHT_MARGIN,
+                          child:                         relatedBlog(),
+                        )
+                      ),
+                      Container(
+                          padding: EdgeInsets.only(top: BSize.COMMON_CELL_SPAN),
+                          color: BColors.COMMON_GREY_BG_COLOR,
+                          child: Container(
+                            margin: BMargin.COMMON_LEFT_RIGHT_MARGIN,
+                            child: comments(),
+                          )
                       )
                     ],
                   )
@@ -193,5 +206,26 @@ class _BlogContentPageState extends State<BlogContentPage> {
         children: cardList,
       ),
     );
+  }
+
+  Widget comments(){
+    return Container(
+      child: ListView(
+        physics:  NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        children: commentsList(),
+      ),
+    );
+  }
+
+  List<Widget> commentsList(){
+    List<Widget> ret=[];
+    widget._blogBean.hotComments.forEach((element) {
+      ret.add(
+          CommentCard(element)
+      );
+    });
+    return ret;
   }
 }

@@ -26,36 +26,37 @@ class _BlogCardState extends State<BlogCard> {
   Widget build(BuildContext context) {
     return InkWell(
       child:       Container(
-        height: BSize.COMMON_CARD_HEIGHT,
         margin: EdgeInsets.only(top: BSize.COMMON_CELL_SPAN),
         color: BColors.COMMON_WITE_BG_COLOR,
         child: Container(
           margin: EdgeInsets.only(left: commonSpan,right: commonSpan),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.only(bottom:5),
-                child: Text(widget._bean.blogTitle,style: TextStyle(fontSize: BFontSize.FONT_SIZE_NORMAL+1,fontWeight: FontWeight.w600),maxLines: 2,),
-              ),
-              Container(
-                  child: sumaryAndCoverBlock()
-              ),
-              Container(
-                height: widget.iconSize,
-                margin: EdgeInsets.only(bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    iconAndCount(ImageIcon(AssetImage("lib/images/home_page/ic_liked_un_selected.png"),size: widget.iconSize,) ,widget._bean.commentCount.toString(),widget.iconSize),
-                    iconAndCount(ImageIcon(AssetImage("lib/images/home_page/ic_pins_comment.png") ,size: widget.iconSize),widget._bean.commentCount.toString(),widget.iconSize),
-                  ],
+          child: IntrinsicHeight(
+            child:  Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(bottom:5),
+                  child: Text(widget._bean.blogTitle,style: TextStyle(fontSize: BFontSize.FONT_SIZE_NORMAL+1,fontWeight: FontWeight.w600),maxLines: 2,),
                 ),
-              )
-            ],
-          ),
+                Container(
+                    child: sumaryAndCoverBlock()
+                ),
+                Container(
+                  height: widget.iconSize,
+                  margin: EdgeInsets.only(bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      iconAndCount(ImageIcon(AssetImage("lib/images/home_page/ic_liked_un_selected.png"),size: widget.iconSize,) ,widget._bean.commentCount.toString(),widget.iconSize),
+                      iconAndCount(ImageIcon(AssetImage("lib/images/home_page/ic_pins_comment.png") ,size: widget.iconSize),widget._bean.commentCount.toString(),widget.iconSize),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )
         ),
       ),
       onTap: (){

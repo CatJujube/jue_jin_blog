@@ -35,7 +35,10 @@ class _BlogCardV2State extends State<BlogCardV2> {
             children: [
               Align(
                 alignment: Alignment.topCenter,
-                child: getTopIcon(),
+                child: Container(
+                  child: getTopIcon(),
+                  margin: EdgeInsets.only(top: 5),
+                )
               ),
               Expanded(child:
               Container(
