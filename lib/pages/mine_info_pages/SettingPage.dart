@@ -1,15 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jue_jin_blog/bean/UserBean.dart';
 import 'package:jue_jin_blog/nav/NavUtils.dart';
 import 'package:jue_jin_blog/pages/login_register/LoginRegisterPage.dart';
+import 'package:jue_jin_blog/pages/setting_pages/EditInfoPage.dart';
 import 'package:jue_jin_blog/res/color/BColors.dart';
 import 'package:jue_jin_blog/res/color/BFontSize.dart';
 import 'package:jue_jin_blog/res/color/BSize.dart';
 import 'package:jue_jin_blog/widget/EasyCell.dart';
 
 class SettingPage extends StatefulWidget {
-  SettingPage(this._isLogin,{Key? key}) : super(key: key);
+  SettingPage(this.userBean,this._isLogin,{Key? key}) : super(key: key);
 
+  UserBean userBean;
   bool _isLogin;
 
   @override
@@ -53,37 +56,37 @@ class _SettingPageState extends State<SettingPage> {
             children: [
                 Container(
                   margin: EdgeInsets.only(top: 20),
-                  child: EasyCell("编辑资料",(){
-                    editEvent();
+                  child: EasyCell(leftText: "编辑资料",onTap: (){
+                    NavUtils.navTo(context, EditInfoPage(widget.userBean));
                   }),
                 ),
-              EasyCell("账号设置",(){
+              EasyCell(leftText: "账号设置",onTap: (){
                 accountSettingEvent();
               }),
-              EasyCell("简历管理",(){
+              EasyCell(leftText: "简历管理",onTap: (){
                 editEvent();
               }),
-              EasyCell("屏蔽管理",(){
+              EasyCell(leftText: "屏蔽管理",onTap: (){
                 editEvent();
               }),
               Container(
                 margin: EdgeInsets.only(top: 15),
-                child: EasyCell("编辑资料",(){
+                child: EasyCell(leftText: "编辑资料",onTap: (){
                   editEvent();
                 }),
               ),
-              EasyCell("基础版掘金",(){
+              EasyCell(leftText: "基础版掘金",onTap: (){
                 editEvent();
               }),
-              EasyCell("个性化推荐设置",(){
+              EasyCell(leftText: "个性化推荐设置",onTap: (){
                 editEvent();
               }),
-              EasyCell("推送通知设置",(){
+              EasyCell(leftText: "推送通知设置", onTap: (){
                 editEvent();
               }),
               Container(
                 margin: EdgeInsets.only(top: 15),
-                child: EasyCell("关于",(){
+                child: EasyCell(leftText: "关于",onTap: (){
                   editEvent();
                 }),
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:jue_jin_blog/pages/EmptyPage.dart';
 
 class NavUtils{
@@ -20,6 +21,18 @@ class NavUtils{
       context,
       CupertinoPageRoute(
           builder: (context) => page
+      ),
+    );
+  }
+
+  static void navToWithArgs(BuildContext context, Widget page, Map<String,Object> args){
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => page,
+        settings: RouteSettings(
+          arguments: args,
+        ),
       ),
     );
   }

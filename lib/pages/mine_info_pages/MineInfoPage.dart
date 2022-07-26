@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:jue_jin_blog/bean/MineInfoBean.dart';
+import 'package:jue_jin_blog/bean/UserBean.dart';
 import 'package:jue_jin_blog/nav/NavUtils.dart';
 import 'package:jue_jin_blog/pages/login_register/LoginRegisterPage.dart';
 import 'package:jue_jin_blog/pages/mine_info_pages/SettingPage.dart';
@@ -58,7 +59,7 @@ class _MineInfoPageState extends State<MineInfoPage> {
           NavUtils.navToEmptyPage(context, "提醒");
         }),
         actionIcon("lib/images/mine_info/ic_setting.png",(){
-          NavUtils.navTo(context, SettingPage(false));
+          NavUtils.navTo(context, SettingPage(UserBean.mockData(),false));
         })
       ],
     );
