@@ -64,13 +64,13 @@ class _CommentSubCardState extends State<CommentSubCard> {
     return retList;
   }
 
-  Widget singleCard(String userName,String comment){
+  Widget singleCard(String? userName,String comment){
     return Container(
       child: Text.rich(
           TextSpan(
               children: [
                 TextSpan(
-                    text: userName,
+                    text: userName ?? "",
                     style: TextStyle(
                         color: Colors.blue,
                         fontSize: BFontSize.FONT_SIZE_SAMLL

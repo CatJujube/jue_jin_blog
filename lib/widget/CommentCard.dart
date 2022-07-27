@@ -47,7 +47,7 @@ class _CommentCardState extends State<CommentCard> {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundImage: NetworkImage(widget._bean.observer.headerUrl),
+            backgroundImage: NetworkImage(widget._bean.observer.headerUrl ?? ""),
             backgroundColor: Colors.white,
             radius: BSize.COMMON_HEADER_SIZE,
           ),
@@ -67,7 +67,7 @@ class _CommentCardState extends State<CommentCard> {
                                 maxWidth: 200
                               ),
                               child: Align(
-                                child: Text(widget._bean.observer.userName,
+                                child: Text(widget._bean.observer.userName ?? "",
                                     style: TextStyle(fontSize: BFontSize.FONT_SIZE_NORMAL,color: Colors.blue,fontWeight: FontWeight.w400),
                                     maxLines: 1,overflow: TextOverflow.ellipsis),
                                 alignment: Alignment.centerLeft,
@@ -98,7 +98,7 @@ class _CommentCardState extends State<CommentCard> {
                       )
                 ),
                 Container(
-                  child: Text(widget._bean.observer.workInfo + "    ·   "+TimeUtil.timeToBefore(widget._bean.commentTime),
+                  child: Text(("") + "    ·   "+TimeUtil.timeToBefore(widget._bean.commentTime),
                     style: TextStyle(color: BColors.COMMON_TEXT_GREY_DEEPER,fontSize: BFontSize.FONT_SIZE_SAMLL),
                   ),
                 )

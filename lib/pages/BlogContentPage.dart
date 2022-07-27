@@ -37,7 +37,7 @@ class _BlogContentPageState extends State<BlogContentPage> {
                 margin: EdgeInsets.only(right: 10),
                 child: InkWell(
                   child: CircleAvatar(
-                    backgroundImage: NetworkImage(widget._blogBean.author.headerUrl),
+                    backgroundImage: NetworkImage(widget._blogBean.author.headerUrl ?? ""),
                     radius: BSize.COMMON_HEADER_SIZE,
                     foregroundColor: Colors.white,
                   ),
@@ -51,7 +51,7 @@ class _BlogContentPageState extends State<BlogContentPage> {
                 constraints: BoxConstraints(
                   maxWidth: 140
                 ),
-                child: Text(widget._blogBean.author.userName,maxLines: 1,overflow: TextOverflow.ellipsis,),
+                child: Text(widget._blogBean.author.userName ?? "",maxLines: 1,overflow: TextOverflow.ellipsis,),
               ),
             ],
           ),

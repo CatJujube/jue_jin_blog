@@ -2,12 +2,23 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jue_jin_blog/db/BaseDBKeyValue.dart';
+import 'package:jue_jin_blog/db/UserInfoCache.dart';
 import 'package:jue_jin_blog/nav/NavUtils.dart';
+import 'package:jue_jin_blog/net/http/HttpErrorCode.dart';
+import 'package:jue_jin_blog/net/service/UserService.dart';
+import 'package:jue_jin_blog/pages/MainPage.dart';
+import 'package:jue_jin_blog/pages/mine_info_pages/MineInfoPage.dart';
 import 'package:jue_jin_blog/res/color/BColors.dart';
 import 'package:jue_jin_blog/res/color/BFontSize.dart';
 import 'package:jue_jin_blog/res/color/BMargin.dart';
 import 'package:jue_jin_blog/res/color/BSize.dart';
+import 'package:jue_jin_blog/util/LogWraper.dart';
+import 'package:jue_jin_blog/util/ToastUtil.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+
+import '../../bean/UserBean.dart';
+import '../../db/BaseCache.dart';
 
 class VerifyCodePage extends StatefulWidget {
   VerifyCodePage(this.phoneNumber,{Key? key}) : super(key: key);
@@ -17,6 +28,7 @@ class VerifyCodePage extends StatefulWidget {
 }
 
 class _VerifyCodePageState extends State<VerifyCodePage> {
+  static String TAG = "VerifyCodePage";
   VoidCallback onGetVerifyCode = (){};
   String reGetVerifyCodeText = "重新获取";
   Color reGetVerifyCodeColor = Colors.blueAccent;
@@ -62,8 +74,20 @@ class _VerifyCodePageState extends State<VerifyCodePage> {
                     currentText = value;
                   });
                 },
-                onCompleted: (value){
-                  //todo 将验证码发给后台
+                onCompleted: (code){
+                  var userBeanMsg = UserService.login(widget.phoneNumber, code);
+                  userBeanMsg.then((value){
+                      if(value.status == HttpErrorCode.ERR_OK && value.data != null){
+                        UserBean? user = value.data;
+                        UserInfoCache.getInstance()?.setCurrentUser( user);
+                        BaseCache?.getInstance()?.setString(BaseDBKeyValue.USER_TOKEN_KEY, user?.utoken ?? "");
+                        ToastUtil.showToast("登陆成功");
+                        LogWraper.d(TAG, user?.toString());
+                        NavUtils.navToClearStack(context, MainPage(MainPage.MINE_INFO_PAGE_INDEX));
+                      }else{
+                        ToastUtil.showToast(value.msg.toString());
+                      }
+                  });
                 },
                 appContext: context,
                 backgroundColor: Colors.transparent,
@@ -78,16 +102,19 @@ class _VerifyCodePageState extends State<VerifyCodePage> {
                 ),
               )
             ),
-            Container(
-              child: Text(errorText,style: TextStyle(
-                fontSize: BFontSize.FONT_SIZE_SAMLL,
-                color: Colors.red
-              ),),
-            )
+            // Container(
+            //   child: Text(errorText,style: TextStyle(
+            //     fontSize: BFontSize.FONT_SIZE_SAMLL,
+            //     color: Colors.red
+            //   ),),
+            // )
           ],
         ),
       ),)
     );
   }
 
+  void sendSmsCode(String smsCode){
+
+  }
 }

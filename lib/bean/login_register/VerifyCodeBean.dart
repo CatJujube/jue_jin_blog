@@ -2,7 +2,7 @@ class VerifyCodeBean {
   int? status;
   String? msg;
   bool? success;
-  Null? data;
+  String? data;
 
   VerifyCodeBean({this.status, this.msg, this.success, this.data});
 

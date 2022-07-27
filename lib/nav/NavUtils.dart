@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jue_jin_blog/pages/EmptyPage.dart';
 
-class NavUtils{
-  static void navToEmptyPage(BuildContext context,String title){
+class NavUtils {
+  static void navToEmptyPage(BuildContext context, String title) {
     Navigator.push(
       context,
       CupertinoPageRoute(
@@ -12,11 +12,11 @@ class NavUtils{
     );
   }
 
-  static void navBack(BuildContext context){
+  static void navBack(BuildContext context) {
     Navigator.pop(context);
   }
 
-  static void navTo(BuildContext context, Widget page){
+  static void navTo(BuildContext context, Widget page) {
     Navigator.push(
       context,
       CupertinoPageRoute(
@@ -25,7 +25,8 @@ class NavUtils{
     );
   }
 
-  static void navToWithArgs(BuildContext context, Widget page, Map<String,Object> args){
+  void navToWithArgs(BuildContext context, Widget page,
+      Map<String, Object> args) {
     Navigator.push(
       context,
       CupertinoPageRoute(
@@ -37,14 +38,16 @@ class NavUtils{
     );
   }
 
-  static Future<Map<String,Object>> navToWithResult(BuildContext context, Widget page) async{
+  static Future<Map<String, Object>> navToWithResult(BuildContext context,
+      Widget page) async {
     var result = await Navigator.push(
-      context,
+        context,
         CupertinoPageRoute(builder: (context) => page));
     return result;
   }
 
-  static Future<String> navToWithStringResult(BuildContext context, Widget page) async{
+  static Future<String> navToWithStringResult(BuildContext context,
+      Widget page) async {
     var result = await Navigator.push(
         context,
         CupertinoPageRoute(builder: (context) => page));
@@ -52,11 +55,22 @@ class NavUtils{
   }
 
 
-  static void navBackWithMap(BuildContext context,Map<String,Object> result){
+  static void navBackWithMap(BuildContext context, Map<String, Object> result) {
     Navigator.pop(context, result);
   }
 
-  static void navBackWithString(BuildContext context,String result){
+  static void navBackWithString(BuildContext context, String result) {
     Navigator.pop(context, result);
+  }
+
+  static void navToClearStack(BuildContext context, Widget page) {
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (BuildContext context) {
+              return page;
+            }
+        ),
+            (route) => false
+    );
   }
 }

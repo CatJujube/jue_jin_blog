@@ -26,7 +26,7 @@ class _SettingPageState extends State<SettingPage> {
 
   void editEvent(){
     if(widget._isLogin){
-      //todo ts
+      NavUtils.navToEmptyPage(context, "编辑资料");
     }else{
       NavUtils.navTo(context, LoginRegisterPage());
     }
@@ -35,6 +35,7 @@ class _SettingPageState extends State<SettingPage> {
   void accountSettingEvent(){
     if(widget._isLogin){
       //todo ts
+      NavUtils.navToEmptyPage(context, "编辑资料");
     }else{
       NavUtils.navTo(context, LoginRegisterPage());
     }

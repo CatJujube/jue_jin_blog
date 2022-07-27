@@ -28,7 +28,7 @@ class _EasyUserHeaderState extends State<EasyUserHeader> {
             alignment: Alignment.centerLeft,
             child: Container(
               child: CircleAvatar(
-                backgroundImage: NetworkImage(widget._blogBean.author.headerUrl),
+                backgroundImage: NetworkImage(widget._blogBean.author.headerUrl ?? ""),
                 backgroundColor: Colors.white,
                 radius: BSize.COMMON_HEADER_SIZE,
               ),
@@ -43,7 +43,7 @@ class _EasyUserHeaderState extends State<EasyUserHeader> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      child: Text(widget._blogBean.author.userName,
+                      child: Text(widget._blogBean.author.userName ?? "",
                         style: TextStyle(fontSize: BFontSize.FONT_SIZE_NORMAL),
                       ),
                     ),

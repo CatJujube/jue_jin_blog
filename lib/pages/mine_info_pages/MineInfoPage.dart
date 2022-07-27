@@ -3,9 +3,10 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:jue_jin_blog/bean/MineInfoBean.dart';
+import 'package:jue_jin_blog/asset/NetAssets.dart';
 import 'package:jue_jin_blog/bean/UserBean.dart';
 import 'package:jue_jin_blog/nav/NavUtils.dart';
+import 'package:jue_jin_blog/net/service/UserService.dart';
 import 'package:jue_jin_blog/pages/login_register/LoginRegisterPage.dart';
 import 'package:jue_jin_blog/pages/mine_info_pages/SettingPage.dart';
 import 'package:jue_jin_blog/res/color/BColors.dart';
@@ -20,9 +21,10 @@ class MoreFunctionIconData{
 }
 
 class MineInfoPage extends StatefulWidget {
-  MineInfoPage(this.bean, {Key? key}) : super(key: key);
+  MineInfoPage(this.bean, this.isLogin,{Key? key}) : super(key: key);
 
-  MineInfoBean bean;
+  UserBean? bean;
+  bool isLogin;
 
 
   @override
@@ -30,7 +32,6 @@ class MineInfoPage extends StatefulWidget {
 }
 
 class _MineInfoPageState extends State<MineInfoPage> {
-
   double actionIconSize = 22;
   double commonLeftMargin = BSize.COMMON_LEFT_SPAN;
   double commonRightMargin = BSize.COMMON_RIGHT_SPAN;
@@ -59,7 +60,7 @@ class _MineInfoPageState extends State<MineInfoPage> {
           NavUtils.navToEmptyPage(context, "提醒");
         }),
         actionIcon("lib/images/mine_info/ic_setting.png",(){
-          NavUtils.navTo(context, SettingPage(UserBean.mockData(),false));
+          NavUtils.navTo(context, SettingPage(UserBean.mockData(),UserService.isLogin()));
         })
       ],
     );
@@ -74,9 +75,44 @@ class _MineInfoPageState extends State<MineInfoPage> {
     );
   }
 
-  Widget avatorCell(int type){
-    if(type == MineInfoPageType.LOGIN_TYPE){
-      return Container();
+  Widget avatorCell(){
+    if(widget.isLogin){
+      return Container(
+          margin: EdgeInsets.only(left:10,top:avatorTopMargin,bottom:avatorBottomMargin,),
+          child: GestureDetector(
+            onTap: (){
+              NavUtils.navToEmptyPage(context, "个人主页");
+            },
+            child: Row(
+              children: [
+                CircleAvatar(
+                  backgroundColor: Colors.white,
+                  backgroundImage: NetworkImage(widget.bean?.headerUrl ?? NetAssets.default_avator_url),
+                  radius: 28,
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 15),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 200,
+                        child: Text(widget.bean?.userName ?? "",
+                          style: TextStyle(fontSize: BFontSize.FONT_SIZE_BIG,fontWeight: FontWeight.w500),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Container(
+                        child: Row(
+                        ),
+                      )
+                    ],
+                  )
+                )
+              ],
+            ),
+          )
+      );
     }else{
       return Container(
         margin: EdgeInsets.only(left:10,top:avatorTopMargin,bottom:avatorBottomMargin,),
@@ -98,7 +134,6 @@ class _MineInfoPageState extends State<MineInfoPage> {
             ],
           ),
         )
-
       );
     }
   }
@@ -110,9 +145,10 @@ class _MineInfoPageState extends State<MineInfoPage> {
         child: ListView(
           shrinkWrap: true,
           children: [
-            avatorCell(widget.bean.pageType),
+            avatorCell(),
             likeColFollowCell(),
             cardCell(5),
+            creatorCenterCard(),
             moreFunctionCell()
           ],
         )
@@ -124,9 +160,9 @@ class _MineInfoPageState extends State<MineInfoPage> {
       margin: EdgeInsets.only(bottom: 16,top:10),
       child: Row(
         children: [
-          Expanded(flex:1,child: upDownMessage(widget.bean.likeCount.toString(), "点赞")),
-          Expanded(flex:1,child: upDownMessage(widget.bean.collectCount.toString(), "收藏")),
-          Expanded(flex:1,child: upDownMessage(widget.bean.followCount.toString(), "关注")),
+          Expanded(flex:1,child: upDownMessage(widget.bean?.likeCount.toString() ?? "0", "点赞")),
+          Expanded(flex:1,child: upDownMessage(widget.bean?.followerCount.toString() ?? "0", "收藏")),
+          Expanded(flex:1,child: upDownMessage(widget.bean?.followerCount.toString() ?? "0", "关注")),
         ],
       ),
     );
@@ -250,7 +286,7 @@ class _MineInfoPageState extends State<MineInfoPage> {
                  fontWeight: FontWeight.w500),
                  textAlign: TextAlign.left)),
             Container(
-              height: 125,
+              height: 124,
               child: Swiper(
                 autoplay: false,
                 outer: false,
@@ -291,6 +327,107 @@ class _MineInfoPageState extends State<MineInfoPage> {
     );
   }
 
+  Widget creatorCenterCard(){
+    if(! widget.isLogin){
+      return Container();
+    }
+    return
+      Container(
+        child: Card(
+          color: Colors.white,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(5))
+          ),
+          child: Container(
+            padding: EdgeInsets.only(bottom: 22),
+            child:           Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 16),
+                  child: Row(
+                    children: [
+                      Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                              "创作者中心",
+                              style:TextStyle(
+                                  fontSize: BFontSize.FONT_SIZE_SAMLL+1,
+                                  fontWeight: FontWeight.w500),
+                              textAlign: TextAlign.left)
+                      ),
+                      Flexible(fit : FlexFit.tight,child: SizedBox()),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Icon(Icons.arrow_forward_ios_outlined,size: 12,),
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        child: creatorCenterSubCard("文章展现数", 0, 0),
+                      ),
+                      Container(
+                        child: creatorCenterSubCard("文章阅读数", 0, 0),
+                      ),
+                      Container(
+                        child: creatorCenterSubCard("文章点赞数", 0, 0),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )
+        )
+      );
+  }
 
+  Widget creatorCenterSubCard(String title, int count, int changeCount){
+    return Container(
+      child: Column(
+        children: [
+          Container(
+            child: Text(
+                title,
+                style: TextStyle(
+                    color: BColors.COMMON_TEXT_GREY,
+                    fontSize: BFontSize.FONT_SIZE_SAMLLEST
+                ))),
+          Container(
+            margin: EdgeInsets.only(top: 4,bottom: 4),
+            child: Text(
+              count.toString(),
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: BFontSize.FONT_SIZE_BIG
+              ),
+            ),
+          ),
+          Container(
+            child: Text(
+              "较前日  " + changeCountString(0),
+              style: TextStyle(
+                color: BColors.COMMON_TEXT_GREY,
+                fontSize: BFontSize.FONT_SIZE_SAMLLEST
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
+  String changeCountString(int changeCount){
+    if(changeCount>0){
+      return "+"+changeCount.toString();
+    }else if(changeCount<0){
+      return "-"+changeCount.toString();
+    }else{
+      return "--";
+    }
+  }
 }

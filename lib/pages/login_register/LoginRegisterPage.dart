@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jue_jin_blog/nav/NavUtils.dart';
+import 'package:jue_jin_blog/net/http/HttpErrorCode.dart';
+import 'package:jue_jin_blog/net/service/UserService.dart';
 import 'package:jue_jin_blog/pages/login_register/LoginByPassWordPage.dart';
 import 'package:jue_jin_blog/pages/login_register/VerifyCodePage.dart';
 import 'package:jue_jin_blog/res/color/BColors.dart';
@@ -11,7 +13,6 @@ import 'package:jue_jin_blog/res/color/BSize.dart';
 import 'package:jue_jin_blog/util/ToastUtil.dart';
 import 'package:jue_jin_blog/widget/EasyButton.dart';
 
-import '../../net/dao/LoginRegisterDao.dart';
 
 class LoginRegisterPage extends StatefulWidget {
   LoginRegisterPage({Key? key}) : super(key: key);
@@ -91,10 +92,11 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
   Widget verifyCodeButton(){
     return EasyButton("获取短信验证码",(){
       if(_isPrivicyBoxSelected!) {
-        var errCode =  LoginRegisterDao.verifyCode(_controller.text);
-        errCode.then((value){
-          if(value == VerifyCodeStatusType.VERIFY_CODE_OK){
+        var verifyCodeBean =  UserService.verifyCode(_controller.text);
+        verifyCodeBean.then((value){
+          if(value.status == HttpErrorCode.ERR_OK && value.data?.isNotEmpty == true){
             NavUtils.navTo(context,VerifyCodePage(_controller.text));
+            ToastUtil.showToast(value.data!);
           }else{
             ToastUtil.showToast("获取验证码失败～");
           }

@@ -1,21 +1,38 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jue_jin_blog/bean/MineInfoBean.dart';
+import 'package:jue_jin_blog/bean/UserBean.dart';
 import 'package:jue_jin_blog/bean/home_page_bean/HomePageBean.dart';
+import 'package:jue_jin_blog/net/service/UserService.dart';
 import 'package:jue_jin_blog/pages/EmptyPage.dart';
 import 'package:jue_jin_blog/pages/HomePage.dart';
 import 'package:jue_jin_blog/pages/mine_info_pages/MineInfoPage.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  static int HOME_PAGE_INDEX = 0;
+  static int MINE_INFO_PAGE_INDEX = 4;
 
+  MainPage(this.currentIndex,{Key? key}) : super(key: key);
+
+  int currentIndex = 0;
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  final pages = [HomePage(HomePageBean.mockData()), EmptyPage("沸点"), EmptyPage("发现"), EmptyPage("课程"),MineInfoPage(MineInfoBean.mockData())];
-  int currentIndex =0;
+  final pages = [
+    HomePage(HomePageBean.mockData()),
+    EmptyPage("沸点"),
+    EmptyPage("发现"),
+    EmptyPage("课程"),
+    MineInfoPage(UserService.getCachedCurrentUser(),UserService.isLogin())];
+  int currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    currentIndex = widget.currentIndex;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

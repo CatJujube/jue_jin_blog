@@ -54,7 +54,7 @@ class _BlogCardV2State extends State<BlogCardV2> {
                       children: [
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Text(widget._bean.author.userName ,style: TextStyle(color: BColors.COMMON_TEXT_GREY,fontSize: BFontSize.FONT_SIZE_SAMLL),),
+                          child: Text(widget._bean.author.userName ?? "" ,style: TextStyle(color: BColors.COMMON_TEXT_GREY,fontSize: BFontSize.FONT_SIZE_SAMLL),),
                         ),
                         Flexible(fit: FlexFit.tight, child: SizedBox()),
                         Align(
