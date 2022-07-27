@@ -1,12 +1,12 @@
-class VerifyCodeBean {
+class BaseStringBean {
   int? status;
   String? msg;
   bool? success;
   String? data;
 
-  VerifyCodeBean({this.status, this.msg, this.success, this.data});
+  BaseStringBean({this.status, this.msg, this.success, this.data});
 
-  VerifyCodeBean.fromJson(Map<String, dynamic> json) {
+  BaseStringBean.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     msg = json['msg'];
     success = json['success'];

@@ -60,7 +60,7 @@ class _MineInfoPageState extends State<MineInfoPage> {
           NavUtils.navToEmptyPage(context, "提醒");
         }),
         actionIcon("lib/images/mine_info/ic_setting.png",(){
-          NavUtils.navTo(context, SettingPage(UserBean.mockData(),UserService.isLogin()));
+          NavUtils.navTo(context, SettingPage(widget.bean,UserService.isLogin()));
         })
       ],
     );

@@ -18,7 +18,7 @@ import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 class EditInfoPage extends StatefulWidget {
   EditInfoPage(this._userBean,{Key? key}) : super(key: key);
 
-  UserBean _userBean;
+  UserBean? _userBean;
 
   @override
   _EditInfoPageState createState() => _EditInfoPageState();
@@ -31,7 +31,7 @@ class _EditInfoPageState extends State<EditInfoPage> {
 
   @override
   void initState() {
-    imageFile = Image.network(widget._userBean.headerUrl);
+    imageFile = Image.network(widget._userBean?.headerUrl ?? "");
     super.initState();
   }
 
@@ -98,25 +98,25 @@ class _EditInfoPageState extends State<EditInfoPage> {
       )
     );
     retList.add(
-      EasyCell(leftText: "用户名",rightText: widget._userBean.userName,onTap: () async {
-        var result = await NavUtils.navToWithStringResult(context, InfoModifyPage("用户名", widget._userBean.userName));
-            if(result.isNotEmpty){
-              widget._userBean.userName = result;
+      EasyCell(leftText: "用户名",rightText: widget._userBean?.userName,onTap: () async {
+        var result = await NavUtils.navToWithStringResult(context, InfoModifyPage("用户名", widget._userBean?.userName));
+            if(result.isNotEmpty == true){
+              widget._userBean?.userName = result;
               modifyUserBean(widget._userBean);
             }
       })
     );
     retList.add(
-        EasyCell(leftText: "职位",rightText: widget._userBean.workInfo)
+        EasyCell(leftText: "职位",rightText: widget._userBean?.userName)
     );
     retList.add(
-        EasyCell(leftText: "公司",rightText: widget._userBean.userName)
+        EasyCell(leftText: "公司",rightText: widget._userBean?.userName)
     );
     retList.add(
-        EasyCell(leftText: "简介",rightText: widget._userBean.workInfo)
+        EasyCell(leftText: "简介",rightText: widget._userBean?.userName)
     );
     retList.add(
-        EasyCell(leftText: "博客地址",rightText: widget._userBean.headerUrl)
+        EasyCell(leftText: "博客地址",rightText: widget._userBean?.headerUrl)
     );
     retList.add(
       Container(
@@ -152,7 +152,7 @@ class _EditInfoPageState extends State<EditInfoPage> {
     return null;
   }
 
-  void modifyUserBean(UserBean userBean){
+  void modifyUserBean(UserBean? userBean){
     setState(() {
       widget._userBean = userBean;
       saveButtonEnabel = true;

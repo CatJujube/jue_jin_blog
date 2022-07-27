@@ -49,7 +49,7 @@ class _EasyCellState extends State<EasyCell> {
           Align(
             child: ConstrainedBox(
               constraints: BoxConstraints(
-                  maxWidth: 200
+                  maxWidth: 180
               ),
               child: Text(widget.leftText!,style: TextStyle(fontSize: BFontSize.FONT_SIZE_NORMAL),maxLines: 1,overflow: TextOverflow.ellipsis,),
             ),

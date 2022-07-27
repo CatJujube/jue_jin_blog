@@ -10,8 +10,8 @@ import 'package:jue_jin_blog/widget/EasyTopBar.dart';
 class InfoModifyPage extends StatefulWidget {
   InfoModifyPage(this.topBarTitle,this.modifyContent,{Key? key}) : super(key: key);
 
-  String topBarTitle;
-  String modifyContent;
+  String? topBarTitle;
+  String? modifyContent;
   @override
   _InfoModifyPageState createState() => _InfoModifyPageState();
 }
@@ -29,7 +29,7 @@ class _InfoModifyPageState extends State<InfoModifyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:Colors.white,
-      appBar: EasyTopBar.commonAppBar(context, widget.topBarTitle, [
+      appBar: EasyTopBar.commonAppBar(context, widget.topBarTitle ?? "", [
         Container(
           width: 72,
           margin: EdgeInsets.only(top: 12,bottom: 12,right: 16),

@@ -15,7 +15,7 @@ import 'package:jue_jin_blog/widget/EasyTopBar.dart';
 class SettingPage extends StatefulWidget {
   SettingPage(this.userBean,this._isLogin,{Key? key}) : super(key: key);
 
-  UserBean userBean;
+  UserBean? userBean;
   bool _isLogin;
 
   @override

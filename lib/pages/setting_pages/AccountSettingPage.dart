@@ -10,7 +10,7 @@ import 'package:jue_jin_blog/widget/EasyTopBar.dart';
 class AccountSettingPage extends StatefulWidget {
   AccountSettingPage(this._userBean,{Key? key}) : super(key: key);
 
-  UserBean _userBean;
+  UserBean? _userBean;
 
   @override
   _AccountSettingPageState createState() => _AccountSettingPageState();
@@ -31,8 +31,8 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
       margin: EdgeInsets.only(top: 10),
       child: Column(
         children: [
-          EasyCell(leftText: "手机号",rightText: widget._userBean.userName,onTap: () async {
-             var result = await NavUtils.navToWithStringResult(context, InfoModifyPage("修改手机号", widget._userBean.userName));
+          EasyCell(leftText: "手机号",rightText: widget._userBean?.userName,onTap: () async {
+             var result = await NavUtils.navToWithStringResult(context, InfoModifyPage("修改手机号", widget._userBean?.userName));
           },),
           EasyCell(leftText: "重置账号密码",),
           Container(
