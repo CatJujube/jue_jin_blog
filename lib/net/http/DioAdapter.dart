@@ -42,6 +42,7 @@ class DioAdapter<T>extends BaseHttpAdapter{
       error = e;
       response = e.response;
     }
+    LogUtil.d(TAG + " reponse:"+response.toString());
     return buildRes(response, request);
   }
 

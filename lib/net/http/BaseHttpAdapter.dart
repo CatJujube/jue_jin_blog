@@ -16,7 +16,7 @@ class BaseHttpResponse<T> {
       this.extra);
 
   /// Response body. may have been transformed, please refer to [ResponseType].
-  T data;
+  String data;
 
   /// The corresponding request info.
   BaseRequest request;

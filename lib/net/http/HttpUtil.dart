@@ -19,7 +19,7 @@ class HttpUtil{
     return _instance;
   }
 
-  Future fire(BaseRequest request) async{
+  Future<String> fire(BaseRequest request) async{
     BaseHttpResponse<String>? response;
     var error;
     try{
@@ -32,7 +32,7 @@ class HttpUtil{
     }
     if(response == null){
       print(error.toString());
-      return;
+      return "";
     }
     var result = response.data;
     var status = response.statusCode;

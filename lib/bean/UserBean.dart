@@ -2,14 +2,18 @@ class UserBean{
   String userId;
   String userName;
   String headerUrl;
+  String phoneNumber;
+  String sex;
   int level;
   int followerCount ;
   int likeCount;
   int badgeCount;
-  String workInfo;
+  DateTime? createTime;
+  DateTime? modifyTime;
 
   UserBean(this.userId, this.userName, this.headerUrl, this.level,
-      this.followerCount, this.likeCount, this.badgeCount,this.workInfo);
+      this.followerCount, this.likeCount, this.badgeCount,this.phoneNumber,
+      this.sex,{this.createTime,this.modifyTime});
 
   static UserBean mockData(){
     return UserBean(
@@ -21,6 +25,8 @@ class UserBean{
         298,
         0,
         "算力实习工程师"
+        "18328072392",
+      "male"
     );
   }
 }

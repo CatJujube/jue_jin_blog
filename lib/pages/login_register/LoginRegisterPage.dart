@@ -91,11 +91,14 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
   Widget verifyCodeButton(){
     return EasyButton("获取短信验证码",(){
       if(_isPrivicyBoxSelected!) {
-        var result = LoginRegisterDao.verifyCode(_controller.text);
-        if(result == VerifyCodeStatusType.VERIFY_CODE_OK){
-          NavUtils.navTo(context,VerifyCodePage(_controller.text));
-        }
-
+        var errCode =  LoginRegisterDao.verifyCode(_controller.text);
+        errCode.then((value){
+          if(value == VerifyCodeStatusType.VERIFY_CODE_OK){
+            NavUtils.navTo(context,VerifyCodePage(_controller.text));
+          }else{
+            ToastUtil.showToast("获取验证码失败～");
+          }
+        });
       }else{
         ToastUtil.showToast("请先勾选同意后再进行登录");
       }
