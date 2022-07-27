@@ -25,9 +25,9 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: BColors.COMMON_GREY_BG_COLOR,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: BColors.COMMON_GREY_BG_COLOR,
+        backgroundColor: Colors.white,
         shadowColor: Colors.transparent,
         leading: IconButton(icon: Icon(Icons.clear), onPressed: () {
           Navigator.pop(context);

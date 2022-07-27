@@ -49,7 +49,7 @@ class _MineInfoPageState extends State<MineInfoPage> {
 
   AppBar appBar(){
     return AppBar(
-      backgroundColor: BColors.COMMON_GREY_BG_COLOR,
+      backgroundColor: Colors.white,
       shadowColor: Colors.transparent,
       actions: [
         actionIcon("lib/images/mine_info/ic_moon.png",(){

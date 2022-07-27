@@ -28,12 +28,35 @@ class NavUtils{
   static void navToWithArgs(BuildContext context, Widget page, Map<String,Object> args){
     Navigator.push(
       context,
-      MaterialPageRoute(
+      CupertinoPageRoute(
         builder: (context) => page,
         settings: RouteSettings(
           arguments: args,
         ),
       ),
     );
+  }
+
+  static Future<Map<String,Object>> navToWithResult(BuildContext context, Widget page) async{
+    var result = await Navigator.push(
+      context,
+        CupertinoPageRoute(builder: (context) => page));
+    return result;
+  }
+
+  static Future<String> navToWithStringResult(BuildContext context, Widget page) async{
+    var result = await Navigator.push(
+        context,
+        CupertinoPageRoute(builder: (context) => page));
+    return result;
+  }
+
+
+  static void navBackWithMap(BuildContext context,Map<String,Object> result){
+    Navigator.pop(context, result);
+  }
+
+  static void navBackWithString(BuildContext context,String result){
+    Navigator.pop(context, result);
   }
 }
