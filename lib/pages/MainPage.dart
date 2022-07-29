@@ -7,6 +7,8 @@ import 'package:jue_jin_blog/pages/EmptyPage.dart';
 import 'package:jue_jin_blog/pages/HomePage.dart';
 import 'package:jue_jin_blog/pages/mine_info_pages/MineInfoPage.dart';
 
+import 'hot_pages/HotMainPage.dart';
+
 class MainPage extends StatefulWidget {
   static int HOME_PAGE_INDEX = 0;
   static int MINE_INFO_PAGE_INDEX = 4;
@@ -21,7 +23,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final pages = [
     HomePage(HomePageBean.mockData()),
-    EmptyPage("沸点"),
+    HotMainPage(),
     EmptyPage("发现"),
     EmptyPage("课程"),
     MineInfoPage(UserService.getCachedCurrentUser(),UserService.isLogin())];

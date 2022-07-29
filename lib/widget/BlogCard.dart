@@ -37,7 +37,7 @@ class _BlogCardState extends State<BlogCard> {
               children: [
                 Container(
                   margin: EdgeInsets.only(bottom:5),
-                  child: Text(widget._bean.blogTitle,style: TextStyle(fontSize: BFontSize.FONT_SIZE_NORMAL+1,fontWeight: FontWeight.w600),maxLines: 2,),
+                  child: Text(widget._bean.blogTitle,style: TextStyle(fontSize: BFontSize.FONT_SIZE_NORMAL+1,fontWeight: FontWeight.w400),maxLines: 2,),
                 ),
                 Container(
                     child: sumaryAndCoverBlock()

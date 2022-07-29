@@ -20,7 +20,7 @@ class TabBeanMapperUtil{
         return RecommendPage(bean,isLogin);
       case BaseCategoryType.FOLLOW_TYPE:
         FollowTabBean bean = tabBean as FollowTabBean;
-        return FollowPage(bean,isLogin);
+        return FollowPage(bean,true);
       case BaseCategoryType.HOT_TYPE:
         HotTabBean bean = tabBean as HotTabBean;
         return HotPage(bean,isLogin);

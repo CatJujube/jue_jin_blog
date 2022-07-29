@@ -97,6 +97,7 @@ flutter:
     - lib/images/home_page/bg_hot_rank2.webp
     - lib/images/home_page/bg_hot_rank3.webp
     - lib/asset/Spring.md
+    - lib/images/hot_page/WeChat0bc1ceb0b11a45dc68620cc5447685ae.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
